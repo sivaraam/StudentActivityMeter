@@ -36,7 +36,7 @@ public interface AspirantsDao {
     LiveData<List<Aspirant>> loadAllAspirantsWithName();
 
     @Query("select * from Aspirant where teacher_id = :id")
-    Aspirant loadAspirantsByTeacherId(int id);
+    LiveData<List<Aspirant>> loadAspirantsByTeacherId(String id);
 
     @Insert(onConflict = FAIL)
     void insertAspirants(Aspirant user);

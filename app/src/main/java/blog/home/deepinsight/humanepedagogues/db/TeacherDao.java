@@ -31,7 +31,7 @@ public interface TeacherDao {
     List<Teacher> loadAllTeachers();
 
     @Query("select * from teacher where teacher_id = :id")
-    Teacher loadTeacherById(int id);
+    Teacher loadTeacherById(String id);
 
     @Insert(onConflict = FAIL)
     void insertTeacher(Teacher user);
