@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "edf4bb9c0ca00047de44bfb4a83a2d4b",
+    "identityHash": "3493e9a244865ce210d7df44ece89ac0",
     "entities": [
       {
         "tableName": "Student",
@@ -218,7 +218,7 @@
       },
       {
         "tableName": "Aspirant",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `student_id` INTEGER NOT NULL, PRIMARY KEY(`teacher_id`, `student_id`), FOREIGN KEY(`teacher_id`) REFERENCES `Teacher`(`teacher_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`student_id`) REFERENCES `Student`(`student_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `student_id` INTEGER NOT NULL, `studentName` TEXT, `studentScore` INTEGER, PRIMARY KEY(`teacher_id`, `student_id`), FOREIGN KEY(`teacher_id`) REFERENCES `Teacher`(`teacher_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`student_id`) REFERENCES `Student`(`student_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "teacherId",
@@ -231,6 +231,18 @@
             "columnName": "student_id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "studentName",
+            "columnName": "studentName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "studentScore",
+            "columnName": "studentScore",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -280,7 +292,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"edf4bb9c0ca00047de44bfb4a83a2d4b\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3493e9a244865ce210d7df44ece89ac0\")"
     ]
   }
 }

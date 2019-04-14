@@ -34,6 +34,6 @@ public class AppDatabaseViewModel extends AndroidViewModel {
 
         students = mDb.studentModel().loadAllStudents();
 
-        aspirants = mDb.aspirantsModel().loadAllAspirants();
+        aspirants = mDb.aspirantsModel().loadAllAspirantsWithName();
     }
 }

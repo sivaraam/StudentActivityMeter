@@ -28,8 +28,12 @@ import static androidx.room.OnConflictStrategy.FAIL;
 
 @Dao
 public interface AspirantsDao {
-    @Query("select * from Aspirant")
+    @Query("select * from aspirant")
     LiveData<List<Aspirant>> loadAllAspirants();
+
+    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName From aspirant " +
+            "INNER JOIN student ON aspirant.student_id = student.student_id")
+    LiveData<List<Aspirant>> loadAllAspirantsWithName();
 
     @Query("select * from Aspirant where teacher_id = :id")
     Aspirant loadAspirantsByTeacherId(int id);

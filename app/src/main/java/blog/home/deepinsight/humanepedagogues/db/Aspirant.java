@@ -6,7 +6,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 /*
  * Class representing the table consisting of a list of
@@ -41,9 +40,7 @@ public class Aspirant {
     @ColumnInfo(name="student_id")
     public Integer studentId;
 
-    @Ignore
     public String studentName;
 
-    @Ignore
     public Integer studentScore;
 }

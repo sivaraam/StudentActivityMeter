@@ -37,7 +37,7 @@ public class MyAspirantsRecyclerViewAdapter extends RecyclerView.Adapter<MyAspir
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mAspirants.get(position);
         holder.mIdView.setText(mAspirants.get(position).studentId.toString());
-        holder.mContentView.setText(mAspirants.get(position).teacherId);
+        holder.mContentView.setText(mAspirants.get(position).studentName);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
