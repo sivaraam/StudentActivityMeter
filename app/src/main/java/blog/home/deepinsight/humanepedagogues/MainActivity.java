@@ -5,15 +5,16 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import blog.home.deepinsight.humanepedagogues.dummy.DummyContent;
+import androidx.lifecycle.ViewModelProviders;
+import blog.home.deepinsight.humanepedagogues.db.AppDatabaseViewModel;
+import blog.home.deepinsight.humanepedagogues.db.Aspirant;
+import blog.home.deepinsight.humanepedagogues.db.Student;
 
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements StudentListFragment.OnListFragmentInteractionListener, AspirantsFragment.OnListFragmentInteractionListener {
-
-    private TextView mTextMessage;
+    private AppDatabaseViewModel viewModel;
 
     /*
      * Taken from a blog titled: Bottom Navigation Android Example using Fragments
@@ -58,6 +59,13 @@ public class MainActivity extends AppCompatActivity implements StudentListFragme
         setContentView(R.layout.activity_main);
 
         /*
+         * Get the view model and create and initialise the database
+         * with test data.
+         */
+        viewModel = ViewModelProviders.of(this).get(AppDatabaseViewModel.class);
+        viewModel.createDb();
+
+        /*
          * By default load the Student list fragment.
          */
         loadFragment(new StudentListFragment());
@@ -66,11 +74,18 @@ public class MainActivity extends AppCompatActivity implements StudentListFragme
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    public AppDatabaseViewModel getViewModel() { return viewModel; }
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item)
+    public void onListFragmentInteraction(Aspirant aspirer)
     {
-        Toast.makeText(MainActivity.this, (String)item.details,
+        Toast.makeText(MainActivity.this, aspirer.studentId + " " + aspirer.teacherId,
                 Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onListFragmentInteraction(Student student)
+    {
+        Toast.makeText(MainActivity.this, student.studentId + " " + student.studentName,
+                Toast.LENGTH_SHORT).show();
+    }
 }

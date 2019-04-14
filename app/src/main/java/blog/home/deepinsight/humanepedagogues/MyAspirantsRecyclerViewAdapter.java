@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import blog.home.deepinsight.humanepedagogues.AspirantsFragment.OnListFragmentInteractionListener;
-import blog.home.deepinsight.humanepedagogues.dummy.DummyContent.DummyItem;
+import blog.home.deepinsight.humanepedagogues.db.Aspirant;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Aspirant} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyAspirantsRecyclerViewAdapter extends RecyclerView.Adapter<MyAspirantsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private List<Aspirant> mAspirants;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyAspirantsRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyAspirantsRecyclerViewAdapter(List<Aspirant> aspirants, OnListFragmentInteractionListener listener) {
+        mAspirants = aspirants;
         mListener = listener;
     }
 
@@ -35,9 +35,9 @@ public class MyAspirantsRecyclerViewAdapter extends RecyclerView.Adapter<MyAspir
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = mAspirants.get(position);
+        holder.mIdView.setText(mAspirants.get(position).studentId.toString());
+        holder.mContentView.setText(mAspirants.get(position).teacherId);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,14 +53,19 @@ public class MyAspirantsRecyclerViewAdapter extends RecyclerView.Adapter<MyAspir
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mAspirants.size();
+    }
+
+    public void setAspirants(List<Aspirant> aspirants) {
+        mAspirants = aspirants;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Aspirant mItem;
 
         public ViewHolder(View view) {
             super(view);

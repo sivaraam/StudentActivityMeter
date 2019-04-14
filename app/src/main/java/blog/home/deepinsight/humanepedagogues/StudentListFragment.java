@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import blog.home.deepinsight.humanepedagogues.dummy.DummyContent;
-import blog.home.deepinsight.humanepedagogues.dummy.DummyContent.DummyItem;
+import java.util.ArrayList;
+
+import blog.home.deepinsight.humanepedagogues.db.AppDatabaseViewModel;
+import blog.home.deepinsight.humanepedagogues.db.Student;
 
 /**
  * A fragment representing a list of Items.
@@ -21,13 +22,9 @@ import blog.home.deepinsight.humanepedagogues.dummy.DummyContent.DummyItem;
  * interface.
  */
 public class StudentListFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private TextView mContent;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -36,7 +33,6 @@ public class StudentListFragment extends Fragment {
     public StudentListFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static StudentListFragment newInstance(int columnCount) {
         StudentListFragment fragment = new StudentListFragment();
@@ -49,8 +45,6 @@ public class StudentListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //mContent = (TextView) findViewById(R.id.content);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -71,7 +65,16 @@ public class StudentListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyStudentsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
+            MyStudentsRecyclerViewAdapter recyclerViewAdapter =
+                    new MyStudentsRecyclerViewAdapter(new ArrayList<Student>(), mListener);
+
+            recyclerView.setAdapter(recyclerViewAdapter);
+
+            AppDatabaseViewModel viewModel = ((MainActivity)getActivity()).getViewModel();
+
+            viewModel.getStudents().observe(
+                    this, recyclerViewAdapter::setStudents);
         }
         return view;
     }
@@ -105,7 +108,6 @@ public class StudentListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Student item);
     }
 }

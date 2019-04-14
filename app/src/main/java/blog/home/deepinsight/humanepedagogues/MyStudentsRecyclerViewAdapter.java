@@ -1,5 +1,6 @@
 package blog.home.deepinsight.humanepedagogues;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,22 +8,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import blog.home.deepinsight.humanepedagogues.StudentListFragment.OnListFragmentInteractionListener;
-import blog.home.deepinsight.humanepedagogues.dummy.DummyContent.DummyItem;
+import blog.home.deepinsight.humanepedagogues.db.Student;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Student} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyStudentsRecyclerViewAdapter extends RecyclerView.Adapter<MyStudentsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private List<Student> mStudents;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyStudentsRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyStudentsRecyclerViewAdapter(List<Student> students, OnListFragmentInteractionListener listener) {
+        mStudents = students;
         mListener = listener;
     }
 
@@ -34,10 +35,10 @@ public class MyStudentsRecyclerViewAdapter extends RecyclerView.Adapter<MyStuden
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        holder.mStudent = mStudents.get(position);
+        holder.mIdView.setText(mStudents.get(position).studentId.toString());
+        holder.mContentView.setText(mStudents.get(position).studentName);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +46,7 @@ public class MyStudentsRecyclerViewAdapter extends RecyclerView.Adapter<MyStuden
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.mStudent);
                 }
             }
         });
@@ -53,14 +54,19 @@ public class MyStudentsRecyclerViewAdapter extends RecyclerView.Adapter<MyStuden
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mStudents.size();
+    }
+
+    public void setStudents(List<Student> students) {
+        mStudents = students;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Student mStudent;
 
         public ViewHolder(View view) {
             super(view);

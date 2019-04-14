@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import blog.home.deepinsight.humanepedagogues.dummy.DummyContent;
-import blog.home.deepinsight.humanepedagogues.dummy.DummyContent.DummyItem;
+import java.util.ArrayList;
+
+import blog.home.deepinsight.humanepedagogues.db.AppDatabaseViewModel;
+import blog.home.deepinsight.humanepedagogues.db.Aspirant;
 
 /**
  * A fragment representing a list of Items.
@@ -67,7 +69,17 @@ public class AspirantsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyAspirantsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
+            MyAspirantsRecyclerViewAdapter recyclerViewAdapter =
+                    new MyAspirantsRecyclerViewAdapter(new ArrayList<Aspirant>(), mListener);
+
+            recyclerView.setAdapter(recyclerViewAdapter);
+
+            AppDatabaseViewModel viewModel = ((MainActivity)getActivity()).getViewModel();
+
+            viewModel.getAspirants().observe(
+                    this, recyclerViewAdapter::setAspirants);
+
         }
         return view;
     }
@@ -102,6 +114,6 @@ public class AspirantsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Aspirant aspirant);
     }
 }
