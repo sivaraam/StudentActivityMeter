@@ -2,4 +2,7 @@
     <string name="app_name">Student Activity Meter</string>
     <string name="title_home">Home</string>
     <string name="title_aspirants">Aspirants</string>
+    <string name="get_report">Get Report</string>
+    <string name="give_marks">Give marks</string>
+    <string name="teacher_id">Teacher ID</string>
 </resources>

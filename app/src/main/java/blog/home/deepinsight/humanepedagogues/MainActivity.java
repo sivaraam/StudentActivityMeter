@@ -1,8 +1,11 @@
 package blog.home.deepinsight.humanepedagogues;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -10,6 +13,8 @@ import blog.home.deepinsight.humanepedagogues.db.AppDatabaseViewModel;
 import blog.home.deepinsight.humanepedagogues.db.Aspirant;
 import blog.home.deepinsight.humanepedagogues.db.Student;
 
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -75,11 +80,68 @@ public class MainActivity extends AppCompatActivity implements StudentListFragme
     }
 
     public AppDatabaseViewModel getViewModel() { return viewModel; }
+
+    /*
+     * Menu item callbacks
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.teacher_id:
+                Toast.makeText(
+                        MainActivity.this,
+                        "Hello world from menu!",
+                         Toast.LENGTH_SHORT
+                    ).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /*
+     * Fragment items interaction callbacks
+     */
     @Override
     public void onListFragmentInteraction(Aspirant aspirer)
     {
-        Toast.makeText(MainActivity.this, aspirer.studentId + " " + aspirer.teacherId,
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MainActivity.this, aspirer.studentId + " " + aspirer.teacherId,
+//                Toast.LENGTH_SHORT).show();
+
+        // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage("Student ID: " + aspirer.studentId + "\nTeacher ID: " + aspirer.teacherId)
+                .setTitle(aspirer.studentName);
+
+        // Set callbacks for buttons
+        builder.setPositiveButton(R.string.give_marks, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(MainActivity.this, aspirer.studentId + " " + aspirer.teacherId + " Give marks",
+                                Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNeutralButton(R.string.get_report, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(MainActivity.this, aspirer.studentId + " " + aspirer.teacherId + " Get Report",
+                                Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 4. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
     }
 
     @Override
