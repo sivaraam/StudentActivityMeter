@@ -20,7 +20,6 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 
 import blog.home.deepinsight.humanepedagogues.db.AppDatabase;
-import blog.home.deepinsight.humanepedagogues.db.Aspirant;
 import blog.home.deepinsight.humanepedagogues.db.Student;
 import blog.home.deepinsight.humanepedagogues.db.Teacher;
 
@@ -34,29 +33,19 @@ public class DatabaseInitializer {
         populateWithTestData(db);
     }
 
-    private static void addAspirant(final AppDatabase db, final Teacher teacher,  final Student aspirer, final Integer score) {
-        Aspirant aspirant = new Aspirant();
-        aspirant.teacherId = teacher.teacherId;
-        aspirant.studentId = aspirer.studentId;
-        aspirant.studentScore = score;
-        db.aspirantsModel().insertAspirants(aspirant);
-    }
-
-    private static Teacher addTeacher(final AppDatabase db, final String id, final String name, final String subject) {
+    private static void addTeacher(final AppDatabase db, final String id, final String name, final String subject) {
         Teacher teacher = new Teacher();
         teacher.teacherId = id;
         teacher.teacherName = name;
         teacher.subject = subject;
         db.teacherModel().insertTeacher(teacher);
-        return teacher;
     }
 
-    private static Student addStudent(final AppDatabase db, final Integer id, final String name) {
+    private static void addStudent(final AppDatabase db, final Integer id, final String name) {
         Student student = new Student();
         student.studentId = id;
         student.studentName = name;
         db.studentModel().insertStudent(student);
-        return student;
     }
 
     private static void populateWithTestData(AppDatabase db) {
@@ -64,23 +53,20 @@ public class DatabaseInitializer {
         db.studentModel().deleteAll();
         db.teacherModel().deleteAll();
 
-        Student ram_asp_1 = addStudent(db, 1, "Aswin");
-        Student ram_asp_2 = addStudent(db, 2, "Anushya");
+        addStudent(db, 1, "Aswin");
+        addStudent(db, 2, "Anushya");
         addStudent(db, 3, "Baskar");
         addStudent(db, 4, "Bhuvaneshwari");
         addStudent(db, 5, "Gayathri");
-        Student amru_asp_1 = addStudent(db, 6, "Kanishka");
+        addStudent(db, 6, "Kanishka");
         addStudent(db, 7, "Manideepan");
         addStudent(db, 8, "Rithik");
         addStudent(db, 9, "Sundar");
         addStudent(db, 10, "Suthi");
 
-        Teacher ram  = addTeacher(db, "ram_sci", "Ram Praveen", "Science");
-        Teacher amru = addTeacher(db, "amru_math", "Amrutha", "Maths");
+        addTeacher(db, "ram_sci", "Ram Praveen", "Science");
+        addTeacher(db, "amru_math", "Amrutha", "Maths");
         addTeacher(db, "dhiyana_eng", "Dhiyana Priya", "English");
-
-        addAspirant(db, ram, ram_asp_1, 60);
-        addAspirant(db, ram, ram_asp_2, 75);
 
 //
 //        try {
