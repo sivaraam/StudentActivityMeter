@@ -48,9 +48,10 @@ public interface AspirantsDao {
 //            " where teacher_id = :id")
 //    LiveData<List<Aspirant>> loadAspirantsByTeacherId(String id);
 
-    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName, SUM(categorymarks.marks) as studentScore From aspirant" +
+    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName," +
+            " SUM(categorymarks.marks) as studentScore From aspirant" +
             " INNER JOIN student ON aspirant.student_id = student.student_id " +
-            " INNER JOIN categorymarks ON aspirant.student_id = categorymarks.student_id" +
+            " INNER JOIN categorymarks ON aspirant.student_id = categorymarks.student_id AND categorymarks.teacher_id = :teacherId" +
             " WHERE aspirant.teacher_id = :teacherId" +
             " group by aspirant.student_id")
     LiveData<List<Aspirant>> loadAllAspirantsFullyByTeacherId(String teacherId);
