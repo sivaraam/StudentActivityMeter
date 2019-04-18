@@ -22,7 +22,24 @@ import androidx.room.RoomDatabase;
 
 import android.content.Context;
 
-@Database(entities = {Student.class, Teacher.class, CategoryMap.class, CategoryMarks.class, Aspirant.class /*, Enrollment.class*/ }, version = 1)
+@Database(
+        entities = {
+                Student.class,
+                Teacher.class,
+                CategoryMap.class,
+                CategoryMarks.class,
+                Aspirant.class
+               /*
+                * We're not using the following for now.
+                * IT might be needed when there are multiple
+                * classes. For now our application assumes
+                * there's only one class and a fixed quantity
+                * of students.
+                */
+		// Enrollment.class
+	},
+        version = 1
+)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
