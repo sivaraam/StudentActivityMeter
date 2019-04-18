@@ -67,6 +67,16 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    /*
+     * FIXME: It is not clear when to correctly close and re-open the database.
+     * So, let's leave that for now.
+     */
+    /*
+    public static void closeInstance() {
+        INSTANCE.close();
+    }
+    */
+
     public static void destroyInstance() {
         INSTANCE = null;
     }
