@@ -57,7 +57,11 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getInMemoryDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "student-activity-meter-table")
+                    Room.databaseBuilder(
+                        context.getApplicationContext(),
+                        AppDatabase.class,
+                        "student-activity-meter-table"
+                    )
                     // To simplify the codelab, allow queries on the main thread.
                     // Don't do this on a real app! See PersistenceBasicSample for an example.
                     // FIXME: we would have to fix this.
