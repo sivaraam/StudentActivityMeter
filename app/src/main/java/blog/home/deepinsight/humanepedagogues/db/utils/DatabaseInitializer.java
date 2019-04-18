@@ -34,10 +34,11 @@ public class DatabaseInitializer {
         populateWithTestData(db);
     }
 
-    private static void addAspirant(final AppDatabase db, final Teacher teacher,  final Student aspirer) {
+    private static void addAspirant(final AppDatabase db, final Teacher teacher,  final Student aspirer, final Integer score) {
         Aspirant aspirant = new Aspirant();
         aspirant.teacherId = teacher.teacherId;
         aspirant.studentId = aspirer.studentId;
+        aspirant.studentScore = score;
         db.aspirantsModel().insertAspirants(aspirant);
     }
 
@@ -59,9 +60,9 @@ public class DatabaseInitializer {
     }
 
     private static void populateWithTestData(AppDatabase db) {
+        db.aspirantsModel().deleteAll();
         db.studentModel().deleteAll();
         db.teacherModel().deleteAll();
-        db.aspirantsModel().deleteAll();
 
         Student ram_asp_1 = addStudent(db, 1, "Aswin");
         Student ram_asp_2 = addStudent(db, 2, "Anushya");
@@ -72,16 +73,14 @@ public class DatabaseInitializer {
         addStudent(db, 7, "Manideepan");
         addStudent(db, 8, "Rithik");
         addStudent(db, 9, "Sundar");
-        Student dhiy_asp_1 = addStudent(db, 10, "Suthi");
+        addStudent(db, 10, "Suthi");
 
         Teacher ram  = addTeacher(db, "ram_sci", "Ram Praveen", "Science");
         Teacher amru = addTeacher(db, "amru_math", "Amrutha", "Maths");
-        Teacher dhiy = addTeacher(db, "dhiyana_eng", "Dhiyana Priya", "English");
+        addTeacher(db, "dhiyana_eng", "Dhiyana Priya", "English");
 
-        addAspirant(db, ram, ram_asp_1);
-        addAspirant(db, ram, ram_asp_2);
-        addAspirant(db, amru, amru_asp_1);
-        addAspirant(db, dhiy, dhiy_asp_1);
+        addAspirant(db, ram, ram_asp_1, 60);
+        addAspirant(db, ram, ram_asp_2, 75);
 
 //
 //        try {

@@ -58,6 +58,12 @@ public class MyAspirantsRecyclerViewAdapter extends RecyclerView.Adapter<MyAspir
 
     public void setAspirants(List<Aspirant> aspirants) {
         mAspirants = aspirants;
+
+        for (Aspirant aspirant : mAspirants) {
+            if (aspirant.teacherId.equals(MainActivity.instance.currentTeacherId))
+                aspirant.finalScore = aspirant.studentScore;
+        }
+
         notifyDataSetChanged();
     }
 

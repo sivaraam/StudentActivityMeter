@@ -4,5 +4,17 @@
     <string name="title_aspirants">Aspirants</string>
     <string name="get_report">Get Report</string>
     <string name="give_marks">Give marks</string>
-    <string name="teacher_id">Teacher ID</string>
+    <string name="teacher_id">Change Teacher</string>
+    <string name="enter_teacher_id">Enter your Teacher ID</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="teacher_list_not_loaded">Teachers list not yet loaded. Please try again.</string>
+    <string name="invalid_teacher_id">Invalid Teacher ID</string>
+    <string name="teacher_id_changed">Teacher ID changed to %1$s</string>
+    <string name="category_name">Category Name</string>
+    <string name="enter_category_name">Enter a Category name</string>
+    <string name="insert_add_another">Insert &amp; Add another</string>
+    <string name="finish_category_add">Finish</string>
+    <string name="category_exists">Category already exists. Please try again.</string>
+    <string name="marks">Marks</string>
 </resources>

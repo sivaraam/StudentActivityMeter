@@ -13,15 +13,16 @@ import androidx.room.Index;
  * categories are the basis using which each teacher rates
  * students.
  */
-@Entity(foreignKeys = {
-        @ForeignKey(entity = Teacher.class,
-                parentColumns = "teacher_id",
-                childColumns = "teacher_id"),
-
-        @ForeignKey(entity = Student.class,
-                parentColumns = "student_id",
-                childColumns = "student_id")
-        },
+@Entity(
+//        foreignKeys = {
+//        @ForeignKey(entity = Teacher.class,
+//                parentColumns = "teacher_id",
+//                childColumns = "teacher_id"),
+//
+//        @ForeignKey(entity = Student.class,
+//                parentColumns = "student_id",
+//                childColumns = "student_id")
+//        },
 
         primaryKeys = {
                 "teacher_id",
@@ -43,4 +44,7 @@ public class Aspirant {
     public String studentName;
 
     public Integer studentScore;
+
+    @Ignore
+    public Integer finalScore;
 }

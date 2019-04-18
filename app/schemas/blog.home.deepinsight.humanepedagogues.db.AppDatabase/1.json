@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3493e9a244865ce210d7df44ece89ac0",
+    "identityHash": "906809c33fb491deaf420e0d06be36a3",
     "entities": [
       {
         "tableName": "Student",
@@ -82,7 +82,7 @@
       },
       {
         "tableName": "CategoryMap",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `category_id` TEXT NOT NULL, `categoryName` TEXT NOT NULL, PRIMARY KEY(`teacher_id`, `category_id`), FOREIGN KEY(`teacher_id`) REFERENCES `Teacher`(`teacher_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `category_id` TEXT NOT NULL, `categoryName` TEXT NOT NULL, PRIMARY KEY(`teacher_id`, `category_id`))",
         "fields": [
           {
             "fieldPath": "teacherId",
@@ -121,23 +121,11 @@
             "createSql": "CREATE  INDEX `index_CategoryMap_category_id_teacher_id` ON `${TABLE_NAME}` (`category_id`, `teacher_id`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "Teacher",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "teacher_id"
-            ],
-            "referencedColumns": [
-              "teacher_id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "CategoryMarks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `student_id` INTEGER NOT NULL, `category_id` TEXT NOT NULL, `marks` INTEGER NOT NULL, `date_mark_given` INTEGER NOT NULL, PRIMARY KEY(`teacher_id`, `student_id`, `category_id`, `date_mark_given`), FOREIGN KEY(`teacher_id`) REFERENCES `Teacher`(`teacher_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`student_id`) REFERENCES `Student`(`student_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `student_id` INTEGER NOT NULL, `category_id` TEXT NOT NULL, `categoryName` TEXT, `marks` INTEGER NOT NULL, `date_mark_given` INTEGER NOT NULL, PRIMARY KEY(`teacher_id`, `student_id`, `category_id`, `date_mark_given`))",
         "fields": [
           {
             "fieldPath": "teacherId",
@@ -156,6 +144,12 @@
             "columnName": "category_id",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "categoryName",
+            "columnName": "categoryName",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "marks",
@@ -191,34 +185,11 @@
             "createSql": "CREATE  INDEX `index_CategoryMarks_student_id_category_id_teacher_id` ON `${TABLE_NAME}` (`student_id`, `category_id`, `teacher_id`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "Teacher",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "teacher_id"
-            ],
-            "referencedColumns": [
-              "teacher_id"
-            ]
-          },
-          {
-            "table": "Student",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "student_id"
-            ],
-            "referencedColumns": [
-              "student_id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "Aspirant",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `student_id` INTEGER NOT NULL, `studentName` TEXT, `studentScore` INTEGER, PRIMARY KEY(`teacher_id`, `student_id`), FOREIGN KEY(`teacher_id`) REFERENCES `Teacher`(`teacher_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`student_id`) REFERENCES `Student`(`student_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacher_id` TEXT NOT NULL, `student_id` INTEGER NOT NULL, `studentName` TEXT, `studentScore` INTEGER, PRIMARY KEY(`teacher_id`, `student_id`))",
         "fields": [
           {
             "fieldPath": "teacherId",
@@ -263,36 +234,13 @@
             "createSql": "CREATE  INDEX `index_Aspirant_student_id_teacher_id` ON `${TABLE_NAME}` (`student_id`, `teacher_id`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "Teacher",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "teacher_id"
-            ],
-            "referencedColumns": [
-              "teacher_id"
-            ]
-          },
-          {
-            "table": "Student",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "student_id"
-            ],
-            "referencedColumns": [
-              "student_id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3493e9a244865ce210d7df44ece89ac0\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"906809c33fb491deaf420e0d06be36a3\")"
     ]
   }
 }

@@ -21,30 +21,47 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.Ignore;
 import androidx.room.Insert;
 import androidx.room.Query;
 
 import static androidx.room.OnConflictStrategy.FAIL;
+import static androidx.room.OnConflictStrategy.IGNORE;
 
 @Dao
 public interface AspirantsDao {
     @Query("select * from aspirant")
     LiveData<List<Aspirant>> loadAllAspirants();
 
-    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName From aspirant " +
-            "INNER JOIN student ON aspirant.student_id = student.student_id")
-    LiveData<List<Aspirant>> loadAllAspirantsWithName();
+//    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName From aspirant" +
+//            " INNER JOIN student ON aspirant.student_id = student.student_id")
+//    LiveData<List<Aspirant>> loadAllAspirantsWithName();
+//
+//    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName, SUM(categorymarks.marks) From aspirant" +
+//            " INNER JOIN student ON aspirant.student_id = student.student_id " +
+//            " INNER JOIN categorymarks ON aspirant.student_id = categorymarks.student_id" +
+//            " group by aspirant.student_id")
+//    LiveData<List<Aspirant>> loadAllAspirantsFully();
 
-    @Query("select * from Aspirant where teacher_id = :id")
-    LiveData<List<Aspirant>> loadAspirantsByTeacherId(String id);
+//    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName From aspirant" +
+//            " INNER JOIN student ON aspirant.student_id = student.student_id" +
+//            " where teacher_id = :id")
+//    LiveData<List<Aspirant>> loadAspirantsByTeacherId(String id);
 
-    @Insert(onConflict = FAIL)
+    @Query("select aspirant.student_id, aspirant.teacher_id, student.studentName as studentName, SUM(categorymarks.marks) as studentScore From aspirant" +
+            " INNER JOIN student ON aspirant.student_id = student.student_id " +
+            " INNER JOIN categorymarks ON aspirant.student_id = categorymarks.student_id" +
+            " WHERE aspirant.teacher_id = :teacherId" +
+            " group by aspirant.student_id")
+    LiveData<List<Aspirant>> loadAllAspirantsFullyByTeacherId(String teacherId);
+
+    @Insert(onConflict = IGNORE)
     void insertAspirants(Aspirant user);
 
     @Delete
     void deleteAspirants(Aspirant user);
 
-    @Insert(onConflict = FAIL)
+    @Insert(onConflict = IGNORE)
     void insertOrReplaceAspirants(Aspirant... users);
 
     @Delete

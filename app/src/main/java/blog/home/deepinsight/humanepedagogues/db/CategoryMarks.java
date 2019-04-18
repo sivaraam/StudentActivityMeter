@@ -15,28 +15,44 @@ import java.util.Date;
  * Enrollment details i.e., which student is enrolled
  * for which class.
  */
-@Entity(foreignKeys = {
-        @ForeignKey(entity = Teacher.class,
-                parentColumns = "teacher_id",
-                childColumns = "teacher_id"),
+@Entity(
+  /*
+   * FIXME: We are currently commenting out all foreign
+   * keys in all tables as we're not sure how to handle it
+   * for now with our DatabaseInitializer which populates
+   * initial data.
+   *
+   * It seems to be throwing an error about foreign key
+   * constraint when populating the data for the
+   * second time. So, we leave it for now.
+   */
+//foreignKeys = {
+//        @ForeignKey(entity = Teacher.class,
+//                parentColumns = "teacher_id",
+//                childColumns = "teacher_id"),
+//
+//        @ForeignKey(entity = Student.class,
+//                parentColumns = "student_id",
+//                childColumns = "student_id")
 
-        @ForeignKey(entity = Student.class,
-                parentColumns = "student_id",
-                childColumns = "student_id")
-// FIXME: The category_id should actually be a foreign key
-// but we aren't specifying it as one as we get an error
-// about the category_id not being in the index:
-//
-// category_id column references a foreign key but it is not part of an index. This may trigger full table scans whenever parent table is modified so you are highly advised to create an index that covers this column.
-//
-// We ignore it for now. May be using a class for it
-// would help?
+  /*
+   * FIXME: The category_id should actually be a foreign key
+   * but we aren't specifying it as one as we get an error
+   * about the category_id not being in the index:
+   *
+   *   category_id column references a foreign key but it is not
+   *   part of an index. This may trigger full table scans whenever
+   *   parent table is modified so you are highly advised to create
+   *   an index that covers this column.
+   *
+   * We ignore it for now. May be using a class for it would help?
+   */
 //
 //        @ForeignKey(entity = CategoryMap.class,
 //                parentColumns = "category_id",
 //                childColumns = "category_id"),
-
-        },
+//
+//        },
 
         primaryKeys = {
             "teacher_id",

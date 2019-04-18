@@ -18,6 +18,7 @@ package blog.home.deepinsight.humanepedagogues.db;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -28,10 +29,10 @@ import static androidx.room.OnConflictStrategy.FAIL;
 @Dao
 public interface TeacherDao {
     @Query("select * from teacher")
-    List<Teacher> loadAllTeachers();
+    LiveData<List<Teacher>> loadAllTeachers();
 
     @Query("select * from teacher where teacher_id = :id")
-    Teacher loadTeacherById(String id);
+    LiveData<Teacher> loadTeacherById(String id);
 
     @Insert(onConflict = FAIL)
     void insertTeacher(Teacher user);
