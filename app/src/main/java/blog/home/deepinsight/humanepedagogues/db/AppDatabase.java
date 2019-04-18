@@ -33,6 +33,10 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract AspirantsDao aspirantsModel();
 
+    public abstract CategoriesDao categoriesModel();
+
+    public abstract CategoryMarksDao categoryMarksModel();
+
     public static AppDatabase getInMemoryDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE =

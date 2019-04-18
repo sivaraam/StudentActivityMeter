@@ -6,7 +6,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.annotation.NonNull;
 import androidx.room.Index;
-import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.util.Date;
@@ -62,6 +61,8 @@ public class CategoryMarks {
     @NonNull
     @ColumnInfo(name="category_id")
     public String categoryId;
+
+    public String categoryName;
 
     @NonNull
     public Integer marks;
